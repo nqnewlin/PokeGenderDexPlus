@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:orientation="vertical"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content">-->
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="75dp"
+    android:layout_margin="5dp"
+
+    app:cardCornerRadius="15dp"
+    app:cardElevation="8dp"
+    app:cardMaxElevation="10dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="false">
+
+
+    <LinearLayout
+        android:id="@+id/RVLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- display poke image -->
+        <ImageView
+            android:id="@+id/pokemonImage"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="12dp"
+            android:layout_gravity="center"
+            android:scaleX="1.25"
+            android:scaleY="1.25"
+
+            />
+
+        <!-- display gender images -->
+        <ImageView
+            android:id="@+id/maleIcon"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/male"
+            android:scaleX="0.4"
+            android:scaleY="0.4"
+            android:layout_gravity="center"
+            android:layout_marginTop="-15dp"
+            android:layout_marginRight="-30dp"/>
+
+        <ImageView
+            android:id="@+id/femaleIcon"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/female"
+            android:scaleX="0.4"
+            android:scaleY="0.4"
+            android:layout_gravity="center"
+            android:layout_marginTop="-25dp"
+            android:layout_marginRight="30dp"/>
+
+        <ImageView
+            android:id="@+id/shinyIcon"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/sparkles"
+            android:scaleX="0.5"
+            android:scaleY="0.5"
+            android:layout_gravity="center"
+            android:layout_marginTop="-75dp"
+            android:layout_marginRight="30dp"/>
+    </LinearLayout>
+
+
+
+
+</com.google.android.material.card.MaterialCardView>
+<!--</LinearLayout>-->

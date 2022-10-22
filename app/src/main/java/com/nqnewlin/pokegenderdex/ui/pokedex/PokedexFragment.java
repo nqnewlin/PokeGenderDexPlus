@@ -64,12 +64,15 @@ public class PokedexFragment extends Fragment {
         binding = FragmentPokedexBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        // Load recyclerviews for pokedex list and region navigation bar
         RecyclerView recyclerView = ( RecyclerView) root.findViewById(R.id.recyclerview);
         RecyclerView regionTitleView = (RecyclerView) root.findViewById(R.id.regionFilterRV);
 
+        // Load Pokemon list from DB and regions
         mPokemons = mPokedexViewModel.getAllPokemon().getValue();
         mRegions = mPokedexViewModel.getRegions();
 
+        //Define and set adapters to appropriate RecyclerViews
         adapter = new PokemonListAdapter(mItems);
         regionAdapter = new RegionListAdapter(mRegions, communication);
 
@@ -79,6 +82,7 @@ public class PokedexFragment extends Fragment {
         layoutManager = new GridLayoutManager(root.getContext(),GRID_WIDTH);
         recyclerView.setLayoutManager(layoutManager);
 
+        //Add smoothScroller to move recyclerview to selected region
         smoothScroller = new LinearSmoothScroller(getContext()) {
                     @Override
                     protected int getVerticalSnapPreference() {
@@ -94,8 +98,7 @@ public class PokedexFragment extends Fragment {
         regionTitleView.addItemDecoration(dividerItemDecoration);
         regionTitleView.setLayoutManager(linearLayoutManager);
 
-
-        //recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
+        // Load pokemon list from DB and observe any changes
         mPokedexViewModel.getAllPokemon().observe(getActivity(), new Observer<List<Pokemon>>() {
                     @Override
                     public void onChanged(List<Pokemon> pokemons) {
@@ -144,6 +147,7 @@ public class PokedexFragment extends Fragment {
         binding = null;
     }
 
+    // Get region name from onClick RegionListAdapter filters
     FragmentCommunicator communication = new FragmentCommunicator() {
         @Override
         public void respond(int position, String regionName) {
@@ -160,7 +164,5 @@ public class PokedexFragment extends Fragment {
             smoothScroller.setTargetPosition(index);
             layoutManager.startSmoothScroll(smoothScroller);
         }
-
-
     };
 }

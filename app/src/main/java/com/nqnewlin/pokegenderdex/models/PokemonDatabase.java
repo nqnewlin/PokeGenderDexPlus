@@ -67,4 +67,6 @@ abstract class PokemonDatabase extends RoomDatabase {
         }
     };
 
+    //TODO add database upgrade methods
+
 }

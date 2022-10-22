@@ -13,10 +13,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nqnewlin.pokegenderdex.R;
 import com.nqnewlin.pokegenderdex.helpers.LoadImage;
+import com.nqnewlin.pokegenderdex.models.List.BlankItem;
 import com.nqnewlin.pokegenderdex.models.List.ListItem;
 import com.nqnewlin.pokegenderdex.models.List.PokeItem;
 import com.nqnewlin.pokegenderdex.models.List.RegionItem;
@@ -25,6 +27,7 @@ import com.nqnewlin.pokegenderdex.models.RegionId;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -64,12 +67,19 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             regionNameText = (TextView) itemView.findViewById(R.id.regionName);
         }
     }
+    public class BlankViewHolder extends RecyclerView.ViewHolder {
+        private CardView blankCard;
+        public BlankViewHolder(View itemView) {
+            super(itemView);
+
+            blankCard = (CardView) itemView.findViewById(R.id.blankCard);
+        }
+    }
 
     private List<Pokemon> mPokemon;
 
     private List<ListItem> mItems;
 
-//    public PokemonListAdapter(List<Pokemon> mPokemon) { this.mPokemon = mPokemon; }
     public PokemonListAdapter(List<ListItem> mItems) { this.mItems = mItems; }
 
     @NonNull
@@ -89,6 +99,11 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 ViewHolder viewHolder = new ViewHolder(scannedView);
                 return viewHolder;
             }
+            case ListItem.TYPE_EMPTY: {
+                View itemView = inflater.inflate(R.layout.recyclerview_blank, parent, false);
+                BlankViewHolder blankViewHolder = new BlankViewHolder(itemView);
+                return blankViewHolder;
+            }
             default:
                 throw new IllegalStateException("unsupported item type");
         }
@@ -106,9 +121,19 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 RegionViewHolder holder = (RegionViewHolder) viewHolder;
                 RegionId regionId = regionItem.getRegionId();
                 TextView regionName = holder.regionNameText;
-                regionName.setText(regionId.getName());
+                regionName.setText(regionId.getName().substring(0,1).toUpperCase(Locale.ROOT)
+                        + regionId.getName().substring(1));
                 break;
 
+            }
+            case ListItem.TYPE_EMPTY: {
+                BlankItem blankItem = (BlankItem) mItems.get(position);
+                BlankViewHolder holder = (BlankViewHolder) viewHolder;
+                CardView blankCard = holder.blankCard;
+                blankCard.setVisibility(View.INVISIBLE);
+
+
+                break;
             }
             case ListItem.TYPE_POKE: {
                 PokeItem pokeItem = (PokeItem) mItems.get(position);
@@ -175,8 +200,8 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                         String toast = "#" + pokemon.getId() + ", " + pokemon.getName();
                         Toast.makeText(v.getContext(), toast, Toast.LENGTH_SHORT).show();
-                        System.out.println("Name: " + pokemon.isForm());
 
+                        //TODO open pokemon view activity
                     }
 
                 });

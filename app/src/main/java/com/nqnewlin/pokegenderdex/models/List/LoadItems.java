@@ -35,7 +35,9 @@ public class LoadItems {
 //                    pokemonList.clear();
                         pokemonList = new ArrayList<>();
                     }
-                    pokemonList.add(pokemons.get(index));
+                    if (!pokemons.get(index).isForm()) {
+                        pokemonList.add(pokemons.get(index));
+                    }
 
                     index++;
                 }

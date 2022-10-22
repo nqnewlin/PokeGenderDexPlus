@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Pokemon.class}, version = 1, exportSchema = false)
+@Database(entities = {Pokemon.class}, version = 2, exportSchema = false)
 abstract class PokemonDatabase extends RoomDatabase {
     abstract PokemonDao pokemonDao();
 

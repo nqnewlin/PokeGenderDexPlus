@@ -14,6 +14,7 @@ import com.nqnewlin.pokegenderdex.models.PokemonRepository;
 import com.nqnewlin.pokegenderdex.models.RegionId;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.TreeMap;
 
@@ -23,11 +24,18 @@ public class PokedexViewModel extends AndroidViewModel {
 
     private LiveData<List<Pokemon>> mPokemon;
 
+    private List<RegionId> mRegions;
+
+    private final static List<String> REGIONS = Arrays.asList("Kanto", "Johto", "Hoenn", "Sinnoh", "Unova",
+            "Kalos", "Alola", "Galar");
+
 
 
     public PokedexViewModel(Application application) {
         super(application);
         mRepository = new PokemonRepository(application);
+
+        mRegions = loadRegions();
 
         mPokemon = mRepository.getAllPokemon();
     }
@@ -54,7 +62,8 @@ public class PokedexViewModel extends AndroidViewModel {
         return items;
     }
 
-   void insert(Pokemon pokemon) {
+
+    void insert(Pokemon pokemon) {
         mRepository.insert(pokemon);
     }
 
@@ -65,6 +74,24 @@ public class PokedexViewModel extends AndroidViewModel {
     void deleteAll() {
         mRepository.deleteAllPokemon();
     }
+
+    public List<RegionId> getRegions() {
+//        for (int i = 0; i < REGIONS.size(); i++) {
+//            mRegions.add(new RegionId(i, REGIONS.get(i)));
+//        }
+
+        return mRegions;
+    }
+
+    public List<RegionId> loadRegions() {
+        mRegions = new ArrayList<>();
+        for (int i = 0; i < REGIONS.size(); i++) {
+            mRegions.add(new RegionId(i, REGIONS.get(i)));
+        }
+        return mRegions;
+    }
+
+
 
 
 }

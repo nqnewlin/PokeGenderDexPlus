@@ -38,6 +38,7 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         private ImageView pokemonImage;
         private ImageView maleGenderIcon;
         private ImageView femaleGenderIcon;
+        private ImageView shinyIcon;
 
 
         public ViewHolder(View itemView) {
@@ -48,6 +49,7 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             pokemonImage = (ImageView) itemView.findViewById(R.id.pokemonImage);
             maleGenderIcon = (ImageView) itemView.findViewById(R.id.maleIcon);
             femaleGenderIcon = (ImageView) itemView.findViewById(R.id.femaleIcon);
+            shinyIcon = (ImageView) itemView.findViewById(R.id.shinyIcon);
 
             loadImage = new LoadImage();
 
@@ -78,12 +80,12 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
         switch (viewType) {
             case ListItem.TYPE_HEADER: {
-                View itemView = inflater.inflate(R.layout.recyclerview_pokedex, parent,false);
+                View itemView = inflater.inflate(R.layout.recyclerview_region, parent,false);
                 RegionViewHolder regionViewHolder = new RegionViewHolder(itemView);
                 return regionViewHolder;
             }
             case ListItem.TYPE_POKE: {
-                View scannedView = inflater.inflate(R.layout.recyclerview_region, parent, false);
+                View scannedView = inflater.inflate(R.layout.recyclerview_pokedex, parent, false);
                 ViewHolder viewHolder = new ViewHolder(scannedView);
                 return viewHolder;
             }
@@ -105,6 +107,7 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 RegionId regionId = regionItem.getRegionId();
                 TextView regionName = holder.regionNameText;
                 regionName.setText(regionId.getName());
+                break;
 
             }
             case ListItem.TYPE_POKE: {
@@ -116,7 +119,9 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 ImageView pokeImage = holder.pokemonImage;
                 ImageView maleIcon = holder.maleGenderIcon;
                 ImageView femaleIcon = holder.femaleGenderIcon;
+                ImageView shinyIcon = holder.shinyIcon;
                 LoadImage loadImage = holder.loadImage;
+
 
                 /**
                  * hide pokemon if isForm true
@@ -138,16 +143,19 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         //femaleIcon.setColorFilter(filter);
 
                         //TODO temp grey icon
-                        Random maleRandom = new Random();
-                        Random femaleRand = new Random();
-                        if (!maleRandom.nextBoolean()) {
-                            maleIcon.setColorFilter(filter);
-                        }
-                        if (!femaleRand.nextBoolean()) {
-                            femaleIcon.setColorFilter(filter);
-                        }
+//                        Random maleRandom = new Random();
+//                        Random femaleRand = new Random();
+//                        if (!maleRandom.nextBoolean()) {
+//                            maleIcon.setColorFilter(filter);
+//                        }
+//                        if (!femaleRand.nextBoolean()) {
+//                            femaleIcon.setColorFilter(filter);
+//                        }
 
-
+//                        //TODO implement gender icon visibility
+                        maleIcon.setVisibility(View.VISIBLE);
+                        femaleIcon.setVisibility(View.VISIBLE);
+                        shinyIcon.setVisibility(View.INVISIBLE);
                         if (pokemon.getGenderRate() < 0) {
                             maleIcon.setVisibility(View.INVISIBLE);
                             femaleIcon.setVisibility(View.INVISIBLE);
@@ -167,10 +175,12 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                         String toast = "#" + pokemon.getId() + ", " + pokemon.getName();
                         Toast.makeText(v.getContext(), toast, Toast.LENGTH_SHORT).show();
+                        System.out.println("Name: " + pokemon.isForm());
 
                     }
 
                 });
+                break;
 
             }
             default:
@@ -198,20 +208,25 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemCount() {
-        System.out.println("IN COUNT");
         if (mItems != null) {
             int size = 0;
             for (int i = 0; i < mItems.size(); i++) {
                 if (mItems.get(i).getType() == 1) {
                     PokeItem pokeItem = (PokeItem) mItems.get(i);
-                    if (pokeItem.getPokemon().isForm()) {
+                    if (!pokeItem.getPokemon().isForm()) {
                         size++;
                     }
+                } else if (mItems.get(i).getType() == 0) {
+                    size++;
                 }
             }
             return size;
         }
         return 0;
+//        if (mItems != null) {
+//            return mItems.size();
+//        }
+//        return 0;
     }
 
     //FUCNTION TO GET LIVE DATA HERE

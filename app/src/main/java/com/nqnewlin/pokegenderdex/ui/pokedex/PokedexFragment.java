@@ -52,7 +52,7 @@ public class PokedexFragment extends Fragment {
         RecyclerView recyclerView = ( RecyclerView) root.findViewById(R.id.recyclerview);
 
         mPokemons = mPokedexViewModel.getAllPokemon().getValue();
-        System.out.println("LIST: " + mPokemons);
+
 
 //        adapter = new PokemonListAdapter(mPokemons);
         adapter = new PokemonListAdapter(mItems);
@@ -66,13 +66,16 @@ public class PokedexFragment extends Fragment {
         mPokedexViewModel.getAllPokemon().observe(getActivity(), new Observer<List<Pokemon>>() {
                     @Override
                     public void onChanged(List<Pokemon> pokemons) {
-//                        adapter.setPokemon(pokemons);
+                        adapter.setPokemon(pokemons);
                         mPokemons = pokemons;
-//                        adapter.notifyDataSetChanged();
+                        adapter.notifyDataSetChanged();
 
+                        System.out.println("Fragment pokemon list: " + mPokemons);
 
                         LoadItems loadItems = new LoadItems();
                         mPokeMap = LoadItems.loadList(mPokemons);
+
+
 
                         mItems = new ArrayList<>();
 
@@ -84,6 +87,7 @@ public class PokedexFragment extends Fragment {
                                 mItems.add(pokeItem);
                             }
                         }
+
                         adapter.setList(mItems);
                         adapter.notifyDataSetChanged();
 

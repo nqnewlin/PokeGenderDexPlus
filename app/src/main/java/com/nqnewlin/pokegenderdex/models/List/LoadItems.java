@@ -27,18 +27,24 @@ public class LoadItems {
             RegionId regionId = new RegionId(i, REGIONS.get(i));
 
             match = true;
+                while (match && index < pokemons.size()) {
+                    if (!pokemons.get(index).getRegion().equals(REGIONS.get(i))) {
 
-            while (match) {
-                if (!pokemons.get(index).getRegion().equals(REGIONS.get(i))) {
-                    match = false;
-                    map.put(regionId, pokemonList);
+                        match = false;
+                        map.put(regionId, pokemonList);
 //                    pokemonList.clear();
-                    pokemonList = new ArrayList<>();
+                        pokemonList = new ArrayList<>();
+                    }
+                    pokemonList.add(pokemons.get(index));
+
+                    index++;
                 }
-                pokemonList.add(pokemons.get(index));
-                index++;
-            }
+                if (match) {
+                    map.put(regionId, pokemonList);
+                }
+
         }
+
         return map;
 
     }

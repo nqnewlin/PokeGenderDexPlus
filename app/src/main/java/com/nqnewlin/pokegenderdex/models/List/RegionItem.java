@@ -16,5 +16,11 @@ public class RegionItem extends ListItem {
         return regionId;
     }
 
+    public void setRegionId(RegionId regionId) {
+        this.regionId = regionId;
+    }
+
+    public String getName() { return regionId.getName(); }
+
 
 }

@@ -18,5 +18,11 @@ public class PokeItem extends ListItem {
         return TYPE_POKE;
     }
 
+    public void setPokemon(Pokemon pokemon) {
+        this.pokemon = pokemon;
+    }
+
+    public String getName() { return pokemon.getName(); }
+
 
 }

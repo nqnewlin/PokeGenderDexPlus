@@ -6,4 +6,6 @@ public abstract class ListItem {
 
     abstract public int getType();
 
+    abstract public String getName();
+
 }

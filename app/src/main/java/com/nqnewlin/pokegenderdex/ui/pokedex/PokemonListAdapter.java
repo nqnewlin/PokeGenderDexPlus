@@ -216,21 +216,6 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         //TODO add logic to add pokemon to recyclerview textviews
     }
 
-
-    //TODO correct size calculation
-//    @Override
-//    public int getItemCount() {
-//        if (mPokemon != null) {
-//            int size = 0;
-//            for (Pokemon pokemon: mPokemon) {
-//                if (!pokemon.isForm()) { size++; }
-//            }
-//            return size;
-//            //return mPokemon.size();
-//        }
-//        return 0;
-//    }
-
     @Override
     public int getItemCount() {
         if (mItems != null) {
@@ -242,6 +227,8 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         size++;
                     }
                 } else if (mItems.get(i).getType() == 0) {
+                    size++;
+                } else if (mItems.get(i).getType() == 2) {
                     size++;
                 }
             }

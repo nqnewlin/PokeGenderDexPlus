@@ -131,6 +131,7 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 BlankViewHolder holder = (BlankViewHolder) viewHolder;
                 CardView blankCard = holder.blankCard;
                 blankCard.setVisibility(View.INVISIBLE);
+                System.out.println("Card width: " + blankCard.getWidth());
 
 
                 break;

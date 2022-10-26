@@ -1,6 +1,11 @@
 package com.nqnewlin.pokegenderdex;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.view.Display;
+import android.view.WindowManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -11,6 +16,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.nqnewlin.pokegenderdex.databinding.ActivityMainBinding;
+import com.nqnewlin.pokegenderdex.ui.pokedex.PokedexFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,6 +41,19 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+    }
+
+    public Bundle getScreenSize() {
+        //get display size
+        WindowManager wm = (WindowManager) getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("WIDTH", width);
+        return bundle;
     }
 
 }

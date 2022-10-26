@@ -1,10 +1,13 @@
 package com.nqnewlin.pokegenderdex.ui.pokedex;
 
 import android.content.Context;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,6 +58,14 @@ public class RegionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         View itemView = inflater.inflate(R.layout.recyclerview_regiontitle, parent, false);
         RegionTitleViewHolder viewHolder = new RegionTitleViewHolder(itemView, mCommunicator);
+
+//        WindowManager wm = (WindowManager) context.getSystemService(context.WINDOW_SERVICE);
+//        Display display = wm.getDefaultDisplay();
+//        Point size = new Point();
+//        display.getSize(size);
+//        int width = size.x;
+//        mCommunicator.cardSize(width / 250);
+
         return viewHolder;
     }
 

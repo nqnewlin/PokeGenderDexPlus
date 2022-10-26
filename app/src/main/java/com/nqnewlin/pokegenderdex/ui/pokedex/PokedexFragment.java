@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.nqnewlin.pokegenderdex.MainActivity;
 import com.nqnewlin.pokegenderdex.R;
 
 import com.nqnewlin.pokegenderdex.databinding.FragmentPokedexBinding;
@@ -52,14 +54,20 @@ public class PokedexFragment extends Fragment {
     GridLayoutManager layoutManager;
     RecyclerView.SmoothScroller smoothScroller;
 
-    private final int GRID_WIDTH = 4;
-
+    //Default width value
+    private int GRID_WIDTH = 4;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         mPokedexViewModel =
                 new ViewModelProvider(this).get(PokedexViewModel.class);
 
+        // Calculate grid width
+        MainActivity activity = (MainActivity) getActivity();
+        Bundle bundle = activity.getScreenSize();
+        if (bundle != null) {
+            GRID_WIDTH = calculateGrid(bundle.getInt("WIDTH"));
+        }
 
         binding = FragmentPokedexBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -131,10 +139,8 @@ public class PokedexFragment extends Fragment {
 
 
                         }
-
                         adapter.setList(mItems);
                         adapter.notifyDataSetChanged();
-
                     }
                 });
 
@@ -164,5 +170,16 @@ public class PokedexFragment extends Fragment {
             smoothScroller.setTargetPosition(index);
             layoutManager.startSmoothScroll(smoothScroller);
         }
+
+        @Override
+        public void cardSize(int size) {
+            GRID_WIDTH = size;
+        }
     };
+
+    public int calculateGrid(int width) {
+        return width / 250;
+    }
+
+
 }

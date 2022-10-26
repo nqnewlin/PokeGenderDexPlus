@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.nqnewlin.pokegenderdex.MainActivity;
 import com.nqnewlin.pokegenderdex.R;
@@ -50,8 +51,10 @@ public class PokedexFragment extends Fragment {
 
     private List<ListItem> mItems;
     private List<RegionId> mRegions;
+    private String mCurrentRegion;
 
     GridLayoutManager layoutManager;
+    LinearLayoutManager linearLayoutManager;
     RecyclerView.SmoothScroller smoothScroller;
 
     //Default width value
@@ -81,8 +84,8 @@ public class PokedexFragment extends Fragment {
         mRegions = mPokedexViewModel.getRegions();
 
         //Define and set adapters to appropriate RecyclerViews
-        adapter = new PokemonListAdapter(mItems);
-        regionAdapter = new RegionListAdapter(mRegions, communication);
+        adapter = new PokemonListAdapter(mItems, communication);
+        regionAdapter = new RegionListAdapter(mRegions, communication, mCurrentRegion);
 
         recyclerView.setAdapter(adapter);
         regionTitleView.setAdapter(regionAdapter);
@@ -99,7 +102,7 @@ public class PokedexFragment extends Fragment {
                 };
 
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(root.getContext(), LinearLayoutManager.HORIZONTAL, false);
+        linearLayoutManager = new LinearLayoutManager(root.getContext(), LinearLayoutManager.HORIZONTAL, false);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(root.getContext(),
                 linearLayoutManager.getOrientation());
         dividerItemDecoration.setDrawable(ContextCompat.getDrawable(root.getContext(), R.drawable.divider));
@@ -113,8 +116,6 @@ public class PokedexFragment extends Fragment {
                         adapter.setPokemon(pokemons);
                         mPokemons = pokemons;
                         adapter.notifyDataSetChanged();
-
-                        System.out.println("Fragment pokemon list: " + mPokemons);
 
                         LoadItems loadItems = new LoadItems();
                         mPokeMap = LoadItems.loadList(mPokemons);
@@ -136,8 +137,6 @@ public class PokedexFragment extends Fragment {
                             for (int i = 0; i < pokeCount; i++) {
                                 mItems.add(new BlankItem());
                             }
-
-
                         }
                         adapter.setList(mItems);
                         adapter.notifyDataSetChanged();
@@ -166,20 +165,20 @@ public class PokedexFragment extends Fragment {
                     }
                 }
             }
-
             smoothScroller.setTargetPosition(index);
             layoutManager.startSmoothScroll(smoothScroller);
         }
 
         @Override
-        public void cardSize(int size) {
-            GRID_WIDTH = size;
+        public void currentRegion(String currentRegion) {
+            mCurrentRegion = currentRegion;
+            regionAdapter.setRegion(mCurrentRegion);
+            regionAdapter.notifyDataSetChanged();
         }
+
     };
 
     public int calculateGrid(int width) {
         return width / 250;
     }
-
-
 }

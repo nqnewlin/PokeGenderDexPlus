@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,6 +28,7 @@ public class RegionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         private final Context context;
 
         private TextView regionName;
+        private CardView regionCard;
 
         private FragmentCommunicator mCommunicator;
 
@@ -34,6 +36,7 @@ public class RegionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             super(itemView);
 
             regionName = (TextView) itemView.findViewById(R.id.regionTitleName);
+            regionCard = (CardView) itemView.findViewById(R.id.regionCard);
             context = itemView.getContext();
             mCommunicator = communicator;
 
@@ -44,10 +47,13 @@ public class RegionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private FragmentCommunicator mCommunicator;
 
+    private String mCurrentRegion;
 
-    public RegionListAdapter(List<RegionId> mRegions, FragmentCommunicator communicator) {
+
+    public RegionListAdapter(List<RegionId> mRegions, FragmentCommunicator communicator, String mCurrentRegion) {
         this.mRegions = mRegions;
         this.mCommunicator = communicator;
+        this.mCurrentRegion = mCurrentRegion;
     }
 
     @NonNull
@@ -74,14 +80,20 @@ public class RegionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         RegionId regionId = mRegions.get(position);
         RegionTitleViewHolder viewHolder = (RegionTitleViewHolder) holder;
         TextView regionName = viewHolder.regionName;
+        CardView regionCard = viewHolder.regionCard;
         regionName.setText(regionId.getName());
 
-        Bundle bundle = new Bundle();
-        bundle.putString("NAME", regionId.getName());
-        PokedexFragment pokedexFragment = new PokedexFragment();
-        pokedexFragment.setArguments(bundle);
+        System.out.println("Current region: " + mCurrentRegion);
+        if (mCurrentRegion != null) {
+            if (mCurrentRegion.equalsIgnoreCase(regionId.getName())) {
+                int color = viewHolder.regionCard.getContext().getResources().getColor(R.color.purple_500);
+                regionCard.setCardBackgroundColor(color);
 
-
+            } else {
+                int colorPurple = viewHolder.regionCard.getContext().getColor(R.color.purple_200);
+                regionCard.setCardBackgroundColor(colorPurple);
+            }
+        }
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,6 +110,11 @@ public class RegionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             return mRegions.size();
         }
         return 0;
+    }
+
+    public void setRegion(String region) {
+        this.mCurrentRegion = region;
+        notifyDataSetChanged();
     }
 
 

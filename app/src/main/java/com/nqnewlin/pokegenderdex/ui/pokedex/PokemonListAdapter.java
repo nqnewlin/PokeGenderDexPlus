@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nqnewlin.pokegenderdex.R;
@@ -42,7 +44,7 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         private ImageView maleGenderIcon;
         private ImageView femaleGenderIcon;
         private ImageView shinyIcon;
-
+        private FragmentCommunicator mCommunicator;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -61,10 +63,12 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
     public class RegionViewHolder extends RecyclerView.ViewHolder {
         private TextView regionNameText;
-        public RegionViewHolder(View itemView) {
+        private FragmentCommunicator mCommunicator;
+        public RegionViewHolder(View itemView, FragmentCommunicator communicator) {
             super(itemView);
 
             regionNameText = (TextView) itemView.findViewById(R.id.regionName);
+            mCommunicator = communicator;
         }
     }
     public class BlankViewHolder extends RecyclerView.ViewHolder {
@@ -80,7 +84,12 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private List<ListItem> mItems;
 
-    public PokemonListAdapter(List<ListItem> mItems) { this.mItems = mItems; }
+    private FragmentCommunicator mCommunicator;
+
+    public PokemonListAdapter(List<ListItem> mItems, FragmentCommunicator mCommunicator) {
+        this.mItems = mItems;
+        this.mCommunicator = mCommunicator;
+    }
 
     @NonNull
     @Override
@@ -91,7 +100,7 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         switch (viewType) {
             case ListItem.TYPE_HEADER: {
                 View itemView = inflater.inflate(R.layout.recyclerview_region, parent,false);
-                RegionViewHolder regionViewHolder = new RegionViewHolder(itemView);
+                RegionViewHolder regionViewHolder = new RegionViewHolder(itemView, mCommunicator);
                 return regionViewHolder;
             }
             case ListItem.TYPE_POKE: {
@@ -123,6 +132,8 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 TextView regionName = holder.regionNameText;
                 regionName.setText(regionId.getName().substring(0,1).toUpperCase(Locale.ROOT)
                         + regionId.getName().substring(1));
+
+                mCommunicator.currentRegion(regionItem.getName());
                 break;
 
             }
@@ -131,9 +142,6 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 BlankViewHolder holder = (BlankViewHolder) viewHolder;
                 CardView blankCard = holder.blankCard;
                 blankCard.setVisibility(View.INVISIBLE);
-                System.out.println("Card width: " + blankCard.getWidth());
-
-
                 break;
             }
             case ListItem.TYPE_POKE: {
@@ -156,7 +164,7 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     //pokeName.setText(pokemon.getName());
                     //pokeId.setText(String.valueOf(pokemon.getId()));
                     try {
-                        Drawable imae = loadImage.loadImage(holder.context, pokemon.getId());
+                        Drawable image = loadImage.loadImage(holder.context, pokemon.getId());
                         pokeImage.setImageDrawable(loadImage.loadImage(holder.context, pokemon.getId()));
 
                         /**TODO implement greyscale for unowned pokemon
@@ -236,10 +244,6 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             return size;
         }
         return 0;
-//        if (mItems != null) {
-//            return mItems.size();
-//        }
-//        return 0;
     }
 
     //FUCNTION TO GET LIVE DATA HERE
@@ -257,6 +261,33 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public int getItemViewType(int position) {
         return mItems.get(position).getType();
     }
+
+//    @Override
+//    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+//        super.onAttachedToRecyclerView(recyclerView);
+//        RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
+//
+//        if (manager instanceof GridLayoutManager) {
+//            GridLayoutManager gridLayoutManager = (GridLayoutManager) manager;
+//            System.out.println("IN Attached");
+//            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//                @Override
+//                public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+//                    super.onScrollStateChanged(recyclerView, newState);
+//                }
+//
+//                @Override
+//                public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+//                    int visiblePosition = gridLayoutManager.findFirstVisibleItemPosition();
+//                    if (visiblePosition > -1) {
+//                        View v = gridLayoutManager.findViewByPosition(visiblePosition);
+//                        mCurrentPosition = visiblePosition;
+//                        System.out.println("Current: " + mCurrentPosition);
+//                    }
+//                }
+//            });
+//        }
+//    }
 }
 
 

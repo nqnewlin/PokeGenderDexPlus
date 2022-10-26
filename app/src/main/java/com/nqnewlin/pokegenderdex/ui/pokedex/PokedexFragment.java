@@ -174,6 +174,8 @@ public class PokedexFragment extends Fragment {
             mCurrentRegion = currentRegion;
             regionAdapter.setRegion(mCurrentRegion);
             regionAdapter.notifyDataSetChanged();
+
+            //TODO add scroll to regionId view header
         }
 
     };

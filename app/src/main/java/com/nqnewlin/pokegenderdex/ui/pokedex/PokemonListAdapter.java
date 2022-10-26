@@ -262,32 +262,6 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return mItems.get(position).getType();
     }
 
-//    @Override
-//    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
-//        super.onAttachedToRecyclerView(recyclerView);
-//        RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
-//
-//        if (manager instanceof GridLayoutManager) {
-//            GridLayoutManager gridLayoutManager = (GridLayoutManager) manager;
-//            System.out.println("IN Attached");
-//            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//                @Override
-//                public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-//                    super.onScrollStateChanged(recyclerView, newState);
-//                }
-//
-//                @Override
-//                public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-//                    int visiblePosition = gridLayoutManager.findFirstVisibleItemPosition();
-//                    if (visiblePosition > -1) {
-//                        View v = gridLayoutManager.findViewByPosition(visiblePosition);
-//                        mCurrentPosition = visiblePosition;
-//                        System.out.println("Current: " + mCurrentPosition);
-//                    }
-//                }
-//            });
-//        }
-//    }
 }
 
 

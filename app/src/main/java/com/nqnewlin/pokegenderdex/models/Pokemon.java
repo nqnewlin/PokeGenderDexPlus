@@ -50,6 +50,8 @@ public class Pokemon {
     @ColumnInfo(name = "region")
     private String region;
 
+    //TODO add missing fields (e.g. owned data)
+
     public Pokemon(@NotNull int id,
                    @NotNull String name,
                    @NotNull int evoChain,

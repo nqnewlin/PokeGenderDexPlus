@@ -50,6 +50,7 @@ public class Pokemon {
     @ColumnInfo(name = "region")
     private String region;
 
+
     //TODO add missing fields (e.g. owned data)
 
     public Pokemon(@NotNull int id,
@@ -73,9 +74,9 @@ public class Pokemon {
         this.genderDifference = genderDifference;
         this.genderRate = genderRate;
         this.hasForms = hasForms;
-        //this.forms = forms;
+        this.forms = forms;
         this.form = form;
-        //this.types = types;
+        this.types = types;
         this.legendary = legendary;
         this.mythical = mythical;
         this.region = region;

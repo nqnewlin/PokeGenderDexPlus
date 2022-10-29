@@ -4,71 +4,198 @@
 <!--    android:layout_width="match_parent"-->
 <!--    android:layout_height="wrap_content">-->
 <com.google.android.material.card.MaterialCardView
+    android:id="@+id/pokedexCard"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="75dp"
+    android:layout_height="120dp"
     android:layout_margin="5dp"
-
+    app:cardBackgroundColor="@color/teal_200"
     app:cardCornerRadius="15dp"
     app:cardElevation="8dp"
     app:cardMaxElevation="10dp"
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="false">
 
+    <RelativeLayout
+        android:layout_width="150dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="10dp">
 
-    <LinearLayout
-        android:id="@+id/RVLinearLayout"
+        <ImageView
+            android:id="@+id/pokeballBackground"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="30dp"
+            android:adjustViewBounds="true"
+            android:alpha="0.1"
+            android:scaleType="fitXY"
+            android:src="@drawable/master_logo_white" />
+    </RelativeLayout>
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="150dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp">
+
+
+<!--        <LinearLayout-->
+<!--        android:id="@+id/RVLinearLayout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="vertical">-->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/pokemonType1"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            app:cardBackgroundColor="@color/white"
+            android:alpha="0.2"
+            app:cardCornerRadius="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="35dp"
+            app:cardElevation="8dp"
+            app:cardMaxElevation="10dp"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="false">
+
+
+        </com.google.android.material.card.MaterialCardView>
+        <TextView
+            android:id="@+id/typeName1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:alpha="0.5"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="34dp"
+            android:text="Type"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/pokemonType2"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            app:cardBackgroundColor="@color/white"
+            android:alpha="0.2"
+            app:cardCornerRadius="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="65dp"
+            app:cardElevation="8dp"
+            app:cardMaxElevation="10dp"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="false">
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/typeName2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:alpha="0.5"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="64dp"
+            android:text="Type"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/pokemonName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:alpha="0.5"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="8dp"
+            android:text="Name"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/pokemonNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:alpha="0.2"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="5dp"
+            android:text="#001"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <!-- display poke image -->
         <ImageView
             android:id="@+id/pokemonImage"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="12dp"
+            android:layout_width="200dp"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginStart="75dp"
             android:layout_gravity="center"
-            android:scaleX="1.25"
-            android:scaleY="1.25"
+            android:scaleType="fitCenter"
 
             />
 
         <!-- display gender images -->
         <ImageView
             android:id="@+id/maleIcon"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
             android:src="@drawable/male"
-            android:scaleX="0.4"
-            android:scaleY="0.4"
-            android:layout_gravity="center"
-            android:layout_marginTop="-15dp"
-            android:layout_marginRight="-30dp"/>
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="95dp"
+            android:scaleType="fitCenter"/>
 
         <ImageView
             android:id="@+id/femaleIcon"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:src="@drawable/female"
-            android:scaleX="0.4"
-            android:scaleY="0.4"
-            android:layout_gravity="center"
-            android:layout_marginTop="-25dp"
-            android:layout_marginRight="30dp"/>
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/male"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="95dp"
+            android:scaleType="fitCenter"/>
 
         <ImageView
             android:id="@+id/shinyIcon"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:src="@drawable/sparkles"
-            android:scaleX="0.5"
-            android:scaleY="0.5"
-            android:layout_gravity="center"
-            android:layout_marginTop="-75dp"
-            android:layout_marginRight="30dp"/>
-    </LinearLayout>
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/male"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="54dp"
+            android:layout_marginTop="95dp"
+            android:scaleType="fitCenter"/>
+        <ImageView
+            android:id="@+id/shadowIcon"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/male"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="76dp"
+            android:layout_marginTop="95dp"
+            android:scaleType="fitCenter"/>
+    </RelativeLayout>
+<!--    </LinearLayout>-->
 
 
 

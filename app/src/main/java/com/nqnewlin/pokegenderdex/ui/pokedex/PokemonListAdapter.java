@@ -28,9 +28,11 @@ import com.nqnewlin.pokegenderdex.models.Pokemon;
 import com.nqnewlin.pokegenderdex.models.RegionId;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -41,20 +43,31 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         private TextView pokemonNameText;
         private TextView pokemonIdText;
         private ImageView pokemonImage;
-        private ImageView maleGenderIcon;
-        private ImageView femaleGenderIcon;
+        private CardView pokedexCard;
+        private CardView type2Card;
+        private TextView type1Name;
+        private TextView type2Name;
+        private ImageView maleIcon;
+        private ImageView femaleIcon;
         private ImageView shinyIcon;
+        private ImageView shadowIcon;
         private FragmentCommunicator mCommunicator;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            //pokemonNameText = (TextView) itemView.findViewById(R.id.pokemonNameView);
-            //pokemonIdText = (TextView) itemView.findViewById(R.id.pokemonIdView);
+            pokemonNameText = (TextView) itemView.findViewById(R.id.pokemonName);
+            pokemonIdText = (TextView) itemView.findViewById(R.id.pokemonNumber);
             pokemonImage = (ImageView) itemView.findViewById(R.id.pokemonImage);
-            maleGenderIcon = (ImageView) itemView.findViewById(R.id.maleIcon);
-            femaleGenderIcon = (ImageView) itemView.findViewById(R.id.femaleIcon);
+            maleIcon = (ImageView) itemView.findViewById(R.id.maleIcon);
+            femaleIcon = (ImageView) itemView.findViewById(R.id.femaleIcon);
+            shadowIcon = (ImageView) itemView.findViewById(R.id.shadowIcon);
             shinyIcon = (ImageView) itemView.findViewById(R.id.shinyIcon);
+            type2Card = (CardView) itemView.findViewById(R.id.pokemonType2);
+            type1Name = (TextView) itemView.findViewById(R.id.typeName1);
+            type2Name = (TextView) itemView.findViewById(R.id.typeName2);
+            pokedexCard = (CardView) itemView.findViewById(R.id.pokedexCard);
+
 
             loadImage = new LoadImage();
 
@@ -85,6 +98,7 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private List<ListItem> mItems;
 
     private FragmentCommunicator mCommunicator;
+
 
     public PokemonListAdapter(List<ListItem> mItems, FragmentCommunicator mCommunicator) {
         this.mItems = mItems;
@@ -149,12 +163,17 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 ViewHolder holder = (ViewHolder) viewHolder;
                 Pokemon pokemon = pokeItem.getPokemon();
                 TextView pokeName = holder.pokemonNameText;
-                //TextView pokeId = holder.pokemonIdText;
+                TextView pokeId = holder.pokemonIdText;
                 ImageView pokeImage = holder.pokemonImage;
-                ImageView maleIcon = holder.maleGenderIcon;
-                ImageView femaleIcon = holder.femaleGenderIcon;
+                ImageView maleIcon = holder.maleIcon;
+                ImageView femaleIcon = holder.femaleIcon;
+                ImageView shadowIcon = holder.shadowIcon;
                 ImageView shinyIcon = holder.shinyIcon;
                 LoadImage loadImage = holder.loadImage;
+                CardView dexCard = holder.pokedexCard;
+                CardView type2Card = holder.type2Card;
+                TextView type1Name = holder.type1Name;
+                TextView type2Name = holder.type2Name;
 
 
                 /**
@@ -164,8 +183,11 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     //pokeName.setText(pokemon.getName());
                     //pokeId.setText(String.valueOf(pokemon.getId()));
                     try {
-                        Drawable image = loadImage.loadImage(holder.context, pokemon.getId());
+                        //Drawable image = loadImage.loadImage(holder.context, pokemon.getId());
                         pokeImage.setImageDrawable(loadImage.loadImage(holder.context, pokemon.getId()));
+                        pokeName.setText(pokemon.getName());
+                        pokeId.setText("#"+String.format("%03d", pokemon.getId()));
+
 
                         /**TODO implement greyscale for unowned pokemon
                          */
@@ -186,17 +208,57 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 //                            femaleIcon.setColorFilter(filter);
 //                        }
 
+
+                        String types = pokemon.getTypes();
+                        types = types.replace("[", "");
+                        types = types.replace("]", "");
+                        types = types.replace(" ", "");
+                        String[] typeArray = types.split(",");
+                        int color = ((ViewHolder) viewHolder).
+                                pokedexCard.getContext().getResources()
+                                .getColor(TypeColorValidator.colorValidator(typeArray[0]));
+                        dexCard.setCardBackgroundColor(color);
+                        type1Name.setText(typeArray[0].substring(0,1).toUpperCase() +
+                                typeArray[0].substring(1));
+                        if (typeArray.length > 1) {
+                            type2Card.setVisibility(View.VISIBLE);
+                            type2Name.setVisibility(View.VISIBLE);
+                            type2Name.setText(typeArray[1].substring(0,1).toUpperCase() +
+                                    typeArray[1].substring(1));
+                        } else {
+                            type2Card.setVisibility(View.INVISIBLE);
+                            type2Name.setVisibility(View.INVISIBLE);
+                        }
+
+
+
+
 //                        //TODO implement gender icon visibility
                         maleIcon.setVisibility(View.VISIBLE);
                         femaleIcon.setVisibility(View.VISIBLE);
-                        shinyIcon.setVisibility(View.INVISIBLE);
+                        //TODO determine if shiny && gender
+                        maleIcon.setImageDrawable(loadImage.loadIcon(holder.context, "male_l"));
+                        femaleIcon.setImageDrawable(loadImage.loadIcon(holder.context, "female_l"));
+                        shinyIcon.setImageDrawable(loadImage.loadIcon(holder.context, "shiny_icon"));
+                        shadowIcon.setImageDrawable(loadImage.loadIcon(holder.context, "ic_shadow"));
+                        shinyIcon.setTranslationX(0);
+                        shadowIcon.setTranslationX(0);
+                        femaleIcon.setTranslationX(0);
+
                         if (pokemon.getGenderRate() < 0) {
-                            maleIcon.setVisibility(View.INVISIBLE);
+                            maleIcon.setImageDrawable(loadImage.loadIcon(holder.context, "genderless_dot"));
+                            shinyIcon.setTranslationX(-45);
+                            shadowIcon.setTranslationX(-45);
                             femaleIcon.setVisibility(View.INVISIBLE);
                         } else if (pokemon.getGenderRate() == 0) {
                             femaleIcon.setVisibility(View.INVISIBLE);
+                            shinyIcon.setTranslationX(-45);
+                            shadowIcon.setTranslationX(-45);
                         } else if (pokemon.getGenderRate() == 8) {
                             maleIcon.setVisibility(View.INVISIBLE);
+                            femaleIcon.setTranslationX(-45);
+                            shinyIcon.setTranslationX(-45);
+                            shadowIcon.setTranslationX(-45);
                         }
                     } catch (IOException ex) {
                         Log.e("ERROR", "Image load error");

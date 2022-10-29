@@ -15,10 +15,30 @@ import java.io.InputStream;
 public class LoadImage {
 
     public Drawable loadImage(Context context, int id) throws IOException {
-        String idString = String.format("%05d", id);
+//        String idString = String.format("%05d", id);
+//        String path = "data/images/" + idString + ".jpg";
+        String idString = String.format("%03d", id);
+        String path = "data/newImages/pokemon_icon_" + idString + "_00.png";
+        try {
 
-        String path = "data/images/" + idString + ".jpg";
+            // get input stream
+            InputStream ims = context.getAssets().open(path);
+            // load image as Drawable
+            Drawable drawable = Drawable.createFromStream(ims, null);
+            // set image to ImageView
+            //mImage.setImageDrawable(d);
+            ims.close();
+            return drawable;
+        }
+        catch(IOException ex) {
+            return loadAlternateImage(context, id);
+        }
+    }
 
+    public Drawable loadIcon(Context context, String type) throws IOException {
+//        String idString = String.format("%05d", id);
+//        String path = "data/images/" + idString + ".jpg";
+        String path = "data/otherImages/" + type + ".png";
         try {
 
             // get input stream
@@ -32,7 +52,23 @@ public class LoadImage {
         }
         catch(IOException ex) {
             throw new IOException("Image load failed");
+        }
+    }
 
+    public Drawable loadAlternateImage(Context context, int id) throws IOException {
+        String idString = String.format("%05d", id);
+        String path = "data/images/" + idString + ".jpg";
+        try {
+            // get input stream
+            InputStream ims = context.getAssets().open(path);
+            // load image as Drawable
+            Drawable drawable = Drawable.createFromStream(ims, null);
+            // set image to ImageView
+            //mImage.setImageDrawable(d);
+            ims.close();
+            return drawable;
+        } catch (IOException ex) {
+            throw new IOException("Image load failed");
         }
     }
 

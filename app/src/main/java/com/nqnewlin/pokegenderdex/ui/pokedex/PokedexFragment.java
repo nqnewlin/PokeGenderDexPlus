@@ -181,6 +181,6 @@ public class PokedexFragment extends Fragment {
     };
 
     public int calculateGrid(int width) {
-        return width / 250;
+        return width / 400;
     }
 }

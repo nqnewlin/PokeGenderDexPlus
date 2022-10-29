@@ -45,8 +45,6 @@ public class LoadImage {
             InputStream ims = context.getAssets().open(path);
             // load image as Drawable
             Drawable drawable = Drawable.createFromStream(ims, null);
-            // set image to ImageView
-            //mImage.setImageDrawable(d);
             ims.close();
             return drawable;
         }

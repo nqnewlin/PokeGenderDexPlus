@@ -3,7 +3,6 @@ package com.nqnewlin.pokegenderdex.ui.pokedex;
 import android.content.Context;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +13,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nqnewlin.pokegenderdex.R;
@@ -28,11 +25,8 @@ import com.nqnewlin.pokegenderdex.models.Pokemon;
 import com.nqnewlin.pokegenderdex.models.RegionId;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
-import java.util.Random;
-import java.util.stream.Collectors;
 
 public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -51,7 +45,7 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         private ImageView femaleIcon;
         private ImageView shinyIcon;
         private ImageView shadowIcon;
-        private FragmentCommunicator mCommunicator;
+        private PokedexFragmentCommunicator mCommunicator;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -76,8 +70,8 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
     public class RegionViewHolder extends RecyclerView.ViewHolder {
         private TextView regionNameText;
-        private FragmentCommunicator mCommunicator;
-        public RegionViewHolder(View itemView, FragmentCommunicator communicator) {
+        private PokedexFragmentCommunicator mCommunicator;
+        public RegionViewHolder(View itemView, PokedexFragmentCommunicator communicator) {
             super(itemView);
 
             regionNameText = (TextView) itemView.findViewById(R.id.regionName);
@@ -96,13 +90,17 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private List<Pokemon> mPokemon;
 
     private List<ListItem> mItems;
+    private List<String> mTypes;
 
-    private FragmentCommunicator mCommunicator;
+    private PokedexFragmentCommunicator mCommunicator;
 
 
-    public PokemonListAdapter(List<ListItem> mItems, FragmentCommunicator mCommunicator) {
+    public PokemonListAdapter(List<ListItem> mItems,
+                              List<String> mTypes,
+                              PokedexFragmentCommunicator mCommunicator) {
         this.mItems = mItems;
         this.mCommunicator = mCommunicator;
+        this.mTypes = mTypes;
     }
 
     @NonNull
@@ -147,7 +145,7 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 regionName.setText(regionId.getName().substring(0,1).toUpperCase(Locale.ROOT)
                         + regionId.getName().substring(1));
 
-                mCommunicator.currentRegion(regionItem.getName());
+//                mCommunicator.currentRegion(regionItem.getName());
                 break;
 
             }
@@ -176,12 +174,13 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 TextView type2Name = holder.type2Name;
 
 
+                mCommunicator.currentRegion(pokemon.getRegion());
+
+
                 /**
                  * hide pokemon if isForm true
                  */
                 if (!pokemon.isForm()) {
-                    //pokeName.setText(pokemon.getName());
-                    //pokeId.setText(String.valueOf(pokemon.getId()));
                     try {
                         //Drawable image = loadImage.loadImage(holder.context, pokemon.getId());
                         pokeImage.setImageDrawable(loadImage.loadImage(holder.context, pokemon.getId()));
@@ -237,16 +236,39 @@ public class PokemonListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         maleIcon.setVisibility(View.VISIBLE);
                         femaleIcon.setVisibility(View.VISIBLE);
                         //TODO determine if shiny && gender
-                        maleIcon.setImageDrawable(loadImage.loadIcon(holder.context, "male_l"));
-                        femaleIcon.setImageDrawable(loadImage.loadIcon(holder.context, "female_l"));
+                        if (pokemon.isOwnedMale()) {
+                            maleIcon.setImageDrawable(loadImage.loadIcon(holder.context, "male_l"));
+                        } else {
+                            maleIcon.setImageDrawable(loadImage.loadIcon(holder.context, "male_dot"));
+                        }
+                        if (pokemon.isOwnedFemale()) {
+                            femaleIcon.setImageDrawable(loadImage.loadIcon(holder.context, "female_l"));
+                        } else {
+                            femaleIcon.setImageDrawable(loadImage.loadIcon(holder.context, "female_dot"));
+                        }
                         shinyIcon.setImageDrawable(loadImage.loadIcon(holder.context, "shiny_icon"));
                         shadowIcon.setImageDrawable(loadImage.loadIcon(holder.context, "ic_shadow"));
+                        if (pokemon.isShadow()) {
+                            shadowIcon.setVisibility(View.VISIBLE);
+                            if (!pokemon.isOwnedShadow()) {
+                                shadowIcon.setColorFilter(filter);
+                            }
+                        } else {
+                            shadowIcon.setVisibility(View.INVISIBLE);
+                        }
+                        if (!pokemon.isOwnedShiny()) {
+                            shinyIcon.setColorFilter(filter);
+                        }
                         shinyIcon.setTranslationX(0);
                         shadowIcon.setTranslationX(0);
                         femaleIcon.setTranslationX(0);
 
                         if (pokemon.getGenderRate() < 0) {
-                            maleIcon.setImageDrawable(loadImage.loadIcon(holder.context, "genderless_dot"));
+                            if (pokemon.isOwnedGenderless()) {
+                                maleIcon.setImageDrawable(loadImage.loadIcon(holder.context, "genderless_l"));
+                            } else {
+                                maleIcon.setImageDrawable(loadImage.loadIcon(holder.context, "genderless_dot"));
+                            }
                             shinyIcon.setTranslationX(-45);
                             shadowIcon.setTranslationX(-45);
                             femaleIcon.setVisibility(View.INVISIBLE);

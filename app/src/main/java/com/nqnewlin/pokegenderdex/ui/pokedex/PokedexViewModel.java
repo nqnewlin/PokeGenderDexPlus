@@ -26,6 +26,8 @@ public class PokedexViewModel extends AndroidViewModel {
 
     private List<RegionId> mRegions;
 
+    private List<String> mTypes;
+
     private final static List<String> REGIONS = Arrays.asList("Kanto", "Johto", "Hoenn", "Sinnoh", "Unova",
             "Kalos", "Alola", "Galar");
 

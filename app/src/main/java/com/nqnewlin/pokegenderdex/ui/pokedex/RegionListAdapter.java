@@ -1,25 +1,18 @@
 package com.nqnewlin.pokegenderdex.ui.pokedex;
 
 import android.content.Context;
-import android.graphics.Point;
-import android.os.Bundle;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.nqnewlin.pokegenderdex.R;
 import com.nqnewlin.pokegenderdex.models.RegionId;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class RegionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -30,9 +23,9 @@ public class RegionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         private TextView regionName;
         private CardView regionCard;
 
-        private FragmentCommunicator mCommunicator;
+        private PokedexFragmentCommunicator mCommunicator;
 
-        public RegionTitleViewHolder(View itemView, FragmentCommunicator communicator) {
+        public RegionTitleViewHolder(View itemView, PokedexFragmentCommunicator communicator) {
             super(itemView);
 
             regionName = (TextView) itemView.findViewById(R.id.regionTitleName);
@@ -45,12 +38,12 @@ public class RegionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private List<RegionId> mRegions;
 
-    private FragmentCommunicator mCommunicator;
+    private PokedexFragmentCommunicator mCommunicator;
 
     private String mCurrentRegion;
 
 
-    public RegionListAdapter(List<RegionId> mRegions, FragmentCommunicator communicator, String mCurrentRegion) {
+    public RegionListAdapter(List<RegionId> mRegions, PokedexFragmentCommunicator communicator, String mCurrentRegion) {
         this.mRegions = mRegions;
         this.mCommunicator = communicator;
         this.mCurrentRegion = mCurrentRegion;
@@ -83,7 +76,6 @@ public class RegionListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         CardView regionCard = viewHolder.regionCard;
         regionName.setText(regionId.getName());
 
-        System.out.println("Current region: " + mCurrentRegion);
         if (mCurrentRegion != null) {
             if (mCurrentRegion.equalsIgnoreCase(regionId.getName())) {
                 int color = viewHolder.regionCard.getContext().getResources().getColor(R.color.purple_500);

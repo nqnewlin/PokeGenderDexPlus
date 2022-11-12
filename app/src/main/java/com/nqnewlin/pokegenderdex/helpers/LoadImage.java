@@ -35,6 +35,22 @@ public class LoadImage {
         }
     }
 
+    public Drawable loadType(Context context, String type) throws IOException {
+        String path = "data/types/" + type.toLowerCase() + ".png";
+        try {
+
+            // get input stream
+            InputStream ims = context.getAssets().open(path);
+            // load image as Drawable
+            Drawable drawable = Drawable.createFromStream(ims, null);
+            ims.close();
+            return drawable;
+        }
+        catch(IOException ex) {
+            throw new IOException("Image load failed");
+        }
+    }
+
     public Drawable loadIcon(Context context, String type) throws IOException {
 //        String idString = String.format("%05d", id);
 //        String path = "data/images/" + idString + ".jpg";

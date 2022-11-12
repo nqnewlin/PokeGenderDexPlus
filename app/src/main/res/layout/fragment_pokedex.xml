@@ -8,6 +8,32 @@
     tools:context=".ui.pokedex.PokedexFragment">
 
 
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardSearch"
+        android:elevation="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:alpha="0.5"
+            android:gravity="center"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+
+            android:layout_marginTop="30dp"
+            android:text="Region"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="0dp"
@@ -21,6 +47,69 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/regionFilterRV"
         app:layout_constraintVertical_bias="1.0" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="15dp"
+        android:clickable="true"
+        android:src="@drawable/ic_add"
+        android:text="Start"
+        android:visibility="visible"
+        app:fabSize="auto"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@android:color/white"
+        app:backgroundTint="@color/teal_200"
+
+        />
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fabSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="90dp"
+        android:clickable="true"
+        android:text="Search"
+        app:icon="@drawable/ic_search"
+        app:backgroundTint="@color/white"
+        android:visibility="visible"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/cyan_200"/>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fabGeneration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="150dp"
+        android:clickable="true"
+        android:text="Region"
+        app:icon="@drawable/ic_johto"
+        app:backgroundTint="@color/white"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerview"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fabType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="210dp"
+        android:clickable="true"
+        android:text="Type"
+        app:icon="@drawable/btn_pokeball_white_shadow"
+        app:backgroundTint="@color/white"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerview"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
@@ -63,25 +152,5 @@
         />
 
 
-
-    <!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/recyclerview"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="0dp"-->
-<!--        tools:listitem="@layout/recyclerview_pokedex"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintLeft_toLeftOf="parent"-->
-<!--        app:layout_constraintRight_toRightOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
-
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/fab"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="16dp"-->
-<!--        android:contentDescription="@string/add_word"-->
-<!--        android:src="@drawable/ic_add_black_24dp"/>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

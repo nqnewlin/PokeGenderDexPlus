@@ -47,7 +47,9 @@ public class CsvService {
                             nextLine[9],
                             Boolean.parseBoolean(nextLine[10]),
                             Boolean.parseBoolean(nextLine[11]),
-                            nextLine[12]);
+                            nextLine[12],
+                            Boolean.parseBoolean(nextLine[13]),
+                            false, false, false, false, false);
                     results.add(pokemon);
 
                     if (!nextLine[7].equals("")) {

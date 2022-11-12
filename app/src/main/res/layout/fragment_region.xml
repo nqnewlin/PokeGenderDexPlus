@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<androidx.constraintlayout.widget.ConstraintLayout -->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".navigationDrawer.TypeFragment">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="310dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+
+
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="0dp"
+        app:cardMaxElevation="3dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="false">
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvnav"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scrollbars="vertical"
+        android:backgroundTint="@color/white"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/selectAll"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/typeTitle"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/typeTitle"
+        android:layout_width="288dp"
+        android:layout_height="65dp"
+        android:alpha="0.5"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:gravity="bottom"
+        android:text="TYPES"
+        android:textSize="30sp"
+        android:layout_marginLeft="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/rvnav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.067"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/selectAll"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="bottom"
+        android:text="Deselect All "
+        android:textSize="20sp"
+        android:alpha="0.5"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+
+<!--        <TextView-->
+<!--            android:id="@+id/typeTitle"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            android:alpha="0.5"-->
+<!--            android:gravity="left"-->
+<!--            android:text="Regions"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="40sp"-->
+<!--            android:textStyle="bold" />-->
+
+
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/rvnav"-->
+<!--            android:layout_width="304dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:backgroundTint="@color/white"-->
+<!--            android:minHeight="300dp"-->
+<!--            android:scrollbars="vertical"-->
+<!--            android:layout_alignParentStart="true"-->
+<!--            android:layout_alignParentTop="true"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:layout_marginTop="80dp" />-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/single_product_description"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:gravity="bottom"-->
+<!--            android:orientation="vertical">-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/selectAll"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="15dp"-->
+<!--                android:layout_marginBottom="10dp"-->
+<!--                android:alpha="0.4"-->
+<!--                android:gravity="left"-->
+<!--                android:text="Deselect All"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="20sp"-->
+<!--                android:textStyle="bold" />-->
+<!--        </LinearLayout>-->
+<!--    </com.google.android.material.card.MaterialCardView>-->
+</androidx.constraintlayout.widget.ConstraintLayout>

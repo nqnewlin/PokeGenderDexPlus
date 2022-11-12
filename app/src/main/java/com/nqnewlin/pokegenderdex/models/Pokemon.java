@@ -51,7 +51,25 @@ public class Pokemon {
     private String region;
 
 
-    //TODO add missing fields (e.g. owned data)
+    //Add fields for owned data
+
+    @ColumnInfo(name = "is_shadow")
+    private boolean isShadow;
+
+    @ColumnInfo(name = "owned_shadow")
+    private boolean ownedShadow;
+
+    @ColumnInfo(name = "owned_male")
+    private boolean ownedMale;
+
+    @ColumnInfo(name = "owned_female")
+    private boolean ownedFemale;
+
+    @ColumnInfo(name = "owned_genderless")
+    private boolean ownedGenderless;
+
+    @ColumnInfo(name = "owned_shiny")
+    private boolean ownedShiny;
 
     public Pokemon(@NotNull int id,
                    @NotNull String name,
@@ -65,7 +83,13 @@ public class Pokemon {
                    @NotNull String types,
                    @NotNull boolean legendary,
                    @NotNull boolean mythical,
-                   @NotNull String region
+                   @NotNull String region,
+                   @NotNull boolean isShadow,
+                   @NotNull boolean ownedShadow,
+                   @NotNull boolean ownedFemale,
+                   @NotNull boolean ownedMale,
+                   @NotNull boolean ownedGenderless,
+                   @NotNull boolean ownedShiny
     ){
         this.id = id;
         this.name = name;
@@ -80,6 +104,12 @@ public class Pokemon {
         this.legendary = legendary;
         this.mythical = mythical;
         this.region = region;
+        this.isShadow = isShadow;
+        this.ownedShadow = ownedShadow;
+        this.ownedFemale = ownedFemale;
+        this.ownedMale = ownedMale;
+        this.ownedGenderless = ownedGenderless;
+        this.ownedShiny = ownedShiny;
     }
 
     public int getId() { return id; }
@@ -168,6 +198,42 @@ public class Pokemon {
     public void setRegion(String region) {
         this.region = region;
     }
+
+    public boolean isShadow() { return isShadow; }
+
+    public void setShadow(boolean shadow) { this.isShadow = shadow; }
+
+    public void setOwnedShadow(boolean ownedShadow) {
+        this.ownedShadow = ownedShadow;
+    }
+
+    public boolean isOwnedShadow() { return ownedShadow; }
+
+    public boolean isOwnedFemale() {
+        return ownedFemale;
+    }
+
+    public void setOwnedFemale(boolean ownedFemale) { this.ownedFemale = ownedFemale; }
+
+    public boolean isOwnedMale() {
+        return ownedMale;
+    }
+
+    public void setOwnedGenderless(boolean ownedGenderless) {
+        this.ownedGenderless = ownedGenderless;
+    }
+
+    public boolean isOwnedGenderless() {
+        return ownedGenderless;
+    }
+
+    public void setOwnedMale(boolean ownedFemale) { this.ownedMale = ownedMale; }
+
+    public boolean isOwnedShiny() {
+        return ownedShiny;
+    }
+
+    public void setOwnedShiny(boolean ownedShiny) { this.ownedShiny = ownedShiny; }
 
     @Override
     public String toString() {

@@ -1,13 +1,13 @@
 package com.nqnewlin.pokegenderdex;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.WindowManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.nqnewlin.pokegenderdex.databinding.ActivityMainBinding;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -15,9 +15,6 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
-import com.nqnewlin.pokegenderdex.databinding.ActivityMainBinding;
-import com.nqnewlin.pokegenderdex.ui.pokedex.PokedexFragment;
 
 public class MainActivity extends AppCompatActivity {
 
